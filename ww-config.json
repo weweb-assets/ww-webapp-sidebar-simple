@@ -1,16 +1,8 @@
 {
-    "componentPath": "./src/wwSection.vue",
-    "editor": {
-        "label": {
-            "en": "My Section"
-        },
-        "styleOptions": {
-            "textColor": {
-                "label": {
-                    "en": "Text color"
-                },
-                "type": "Color"
-            }
-        }
+  "componentPath": "./src/wwSection.vue",
+  "editor": {
+    "label": {
+      "en": "Navigation Sidebar"
     }
+  }
 }
