@@ -3,7 +3,6 @@
     class="ww-webapp-sidebar"
     :class="{ editing: isEditing }"
     :style="cssVariables"
-    @click="toggleSidebar"
   >
     <div class="content">
       <div class="header">
@@ -12,7 +11,12 @@
           :class="{ hidden: !isOpen }"
           v-bind="content.headerContent"
         ></wwElement>
-        <wwElement class="header__logo" v-bind="content.headerLogo"></wwElement>
+        <div @click="toggleSidebar">
+          <wwElement
+            class="header__logo"
+            v-bind="content.headerLogo"
+          ></wwElement>
+        </div>
       </div>
       <wwElement
         class="content__layout"
