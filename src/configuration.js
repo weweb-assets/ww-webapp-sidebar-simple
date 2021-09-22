@@ -183,7 +183,7 @@ export const getSettingsConfigurations = (content) => {
       ...positioning(),
       ...dimensions(content),
       ...animation(),
-      ...styling(),
+      // ...styling(),
     },
   };
 };

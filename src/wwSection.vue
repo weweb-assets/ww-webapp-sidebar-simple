@@ -111,6 +111,17 @@ export default {
       // eslint-disable-next-line no-unreachable
       return false;
     },
+    isTopOrBottom() {
+      return (
+        this.content.positioning === "top" ||
+        this.content.positioning === "bottom"
+      );
+    },
+    sidebarWidth() {
+      return this.isOpen === true
+        ? this.content.widthOpen
+        : this.content.widthClosed;
+    },
     positioningValues() {
       switch (this.content.positioning) {
         case "left":
@@ -147,17 +158,6 @@ export default {
           break;
       }
     },
-    isTopOrBottom() {
-      return (
-        this.content.positioning === "top" ||
-        this.content.positioning === "bottom"
-      );
-    },
-    sidebarWidth() {
-      return this.isOpen === true
-        ? this.content.widthOpen
-        : this.content.widthClosed;
-    },
     cssVariables() {
       const variables = {
         ...this.positioningValues,
@@ -181,7 +181,6 @@ export default {
       if (this.isEditing) return;
       this.isOpen = !this.isOpen;
       this.$emit("update:content", { SidebarOpen: this.isOpen });
-      console.log("sidebar open :", this.isOpen);
     },
   },
   mounted() {},
@@ -191,9 +190,9 @@ export default {
 <style lang="scss" scoped>
 .ww-webapp-sidebar {
   position: fixed;
-  background-color: var(--backgroundColor);
-  border-radius: var(--borderRadius);
-  box-shadow: var(--shadows);
+  background-color: inherit;
+  border-radius: inherit;
+  box-shadow: inherit;
   transition: all var(--transitionDuration) var(--transitionTimingFunction);
 
   .content {
