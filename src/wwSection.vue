@@ -4,7 +4,7 @@
     :class="{ editing: isEditing }"
     :style="cssVariables"
   >
-    <div class="content">
+    <div class="content" v-if="!isTopOrBottom">
       <div class="header">
         <wwElement
           class="header__content"
@@ -21,6 +21,17 @@
       <wwElement
         class="content__layout"
         v-bind="content.contentLayout"
+      ></wwElement>
+      <wwElement
+        v-if="content.fixedBottomLayout"
+        class="content__layout-bottom"
+        v-bind="content.contentLayoutBottom"
+      ></wwElement>
+    </div>
+    <div class="content-mobile" v-else>
+      <wwElement
+        class="content-mobile__layout"
+        v-bind="content.contentLayoutMobile"
       ></wwElement>
     </div>
 
@@ -53,12 +64,15 @@ export default {
   emits: ["update:content"],
   wwDefaultContent: {
     SidebarOpen: false,
+    fixedBottomLayout: true,
     headerLogo: wwLib.element("ww-flexbox"),
     headerContent: wwLib.element("ww-flexbox"),
+    contentLayoutBottom: wwLib.element("ww-flexbox"),
     contentLayout: wwLib.element({
       type: "ww-flexbox",
       content: { direction: "column" },
     }),
+    contentLayoutMobile: wwLib.element("ww-flexbox"),
     positioning: wwLib.responsive("left"),
     spacings: wwLib.responsive("20px"),
     borderRadius: wwLib.responsive("0px"),
@@ -66,6 +80,7 @@ export default {
     backgroundColor: wwLib.responsive("#ffffff"),
     widthOpen: wwLib.responsive("250px"),
     widthClosed: wwLib.responsive("90px"),
+    heightBottomTop: wwLib.responsive("70px"),
     transitionDuration: "400ms",
     transitionTimingFunction: "ease",
   },
@@ -81,9 +96,6 @@ export default {
       } else {
         this.isOpen = false;
       }
-    },
-    "content.positioning"() {
-      console.log(this.cssVariables);
     },
   },
   computed: {
@@ -103,37 +115,50 @@ export default {
             top: this.content.spacings,
             left: this.content.spacings,
             bottom: this.content.spacings,
+            width: this.sidebarWidth,
           };
         case "right":
           return {
             top: this.content.spacings,
             right: this.content.spacings,
             bottom: this.content.spacings,
+            width: this.sidebarWidth,
           };
         case "bottom":
           return {
             right: this.content.spacings,
             left: this.content.spacings,
             bottom: this.content.spacings,
+            height: this.content.heightBottomTop,
+            width: "auto",
           };
         case "top":
           return {
             right: this.content.spacings,
             left: this.content.spacings,
             top: this.content.spacings,
+            height: this.content.heightBottomTop,
+            width: "auto",
           };
         default:
           break;
       }
     },
+    isTopOrBottom() {
+      return (
+        this.content.positioning === "top" ||
+        this.content.positioning === "bottom"
+      );
+    },
+    sidebarWidth() {
+      return this.isOpen === true
+        ? this.content.widthOpen
+        : this.content.widthClosed;
+    },
     cssVariables() {
       const variables = {
         ...this.positioningValues,
         "--widthOpen": this.content.widthOpen,
-        "--sidebarWidth":
-          this.isOpen === true
-            ? this.content.widthOpen
-            : this.content.widthClosed,
         "--headerJustify": this.isOpen === true ? "space-between" : "center",
         "--transitionDuration": this.isEditing
           ? "0ms"
@@ -142,6 +167,7 @@ export default {
         "--backgroundColor": this.content.backgroundColor,
         "--borderRadius": this.content.borderRadius,
         "--shadows": this.content.shadows,
+        "--flexDirection": this.isTopOrBottom ? "row" : "column",
       };
 
       return variables;
@@ -162,7 +188,6 @@ export default {
 <style lang="scss" scoped>
 .ww-webapp-sidebar {
   position: fixed;
-  width: var(--sidebarWidth) !important;
   background-color: var(--backgroundColor);
   border-radius: var(--borderRadius);
   box-shadow: var(--shadows);
@@ -176,6 +201,7 @@ export default {
     height: 100%;
 
     &__layout {
+      overflow-y: auto;
       height: 100%;
       width: var(--widthOpen) !important;
     }

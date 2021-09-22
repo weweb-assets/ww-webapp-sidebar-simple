@@ -14,6 +14,12 @@ const options = () => {
         en: "Sidebar open",
       },
     },
+    fixedBottomLayout: {
+      type: "OnOff",
+      label: {
+        en: "Fixed bottom layout",
+      },
+    },
   };
 };
 
@@ -29,8 +35,8 @@ const positioning = () => {
         options: [
           { value: "left", label: { en: "Left", fr: "Gauche" } },
           { value: "right", label: { en: "Right", fr: "Droite" } },
-          //   { value: "bottom", label: { en: "Bottom", fr: "Bas" } },
-          //   { value: "top", label: { en: "Top", fr: "Haut" } },
+          { value: "bottom", label: { en: "Bottom", fr: "Bas" } },
+          { value: "top", label: { en: "Top", fr: "Haut" } },
         ],
       },
     },
@@ -50,7 +56,7 @@ const positioning = () => {
   };
 };
 
-const dimensions = () => {
+const dimensions = (content) => {
   return {
     widthClosed: {
       type: "Length",
@@ -78,6 +84,22 @@ const dimensions = () => {
         ],
       },
     },
+    heightBottomTop:
+      content.positioning === "top" || content.positioning === "bottom"
+        ? {
+            type: "Length",
+            label: {
+              en: "Height",
+              fr: "Height",
+            },
+            options: {
+              unitChoices: [
+                { value: "px", label: "px" },
+                { value: "%", label: "%" },
+              ],
+            },
+          }
+        : {},
   };
 };
 
@@ -154,12 +176,12 @@ const styling = () => {
   };
 };
 
-export const getSettingsConfigurations = () => {
+export const getSettingsConfigurations = (content) => {
   return {
     settingsOptions: { ...options() },
     styleOptions: {
       ...positioning(),
-      ...dimensions(),
+      ...dimensions(content),
       ...animation(),
       ...styling(),
     },
