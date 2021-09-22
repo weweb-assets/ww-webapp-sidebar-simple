@@ -64,7 +64,7 @@ export default {
   emits: ["update:content"],
   wwDefaultContent: {
     SidebarOpen: false,
-    fixedBottomLayout: true,
+    fixedBottomLayout: false,
     headerLogo: wwLib.element("ww-flexbox"),
     headerContent: wwLib.element("ww-flexbox"),
     contentLayoutBottom: wwLib.element({
