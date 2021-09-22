@@ -67,7 +67,10 @@ export default {
     fixedBottomLayout: true,
     headerLogo: wwLib.element("ww-flexbox"),
     headerContent: wwLib.element("ww-flexbox"),
-    contentLayoutBottom: wwLib.element("ww-flexbox"),
+    contentLayoutBottom: wwLib.element({
+      type: "ww-flexbox",
+      content: { direction: "column" },
+    }),
     contentLayout: wwLib.element({
       type: "ww-flexbox",
       content: { direction: "column" },
@@ -203,6 +206,11 @@ export default {
     &__layout {
       overflow-y: auto;
       height: 100%;
+      width: var(--widthOpen) !important;
+    }
+
+    &__layout-bottom {
+      overflow: hidden;
       width: var(--widthOpen) !important;
     }
 
