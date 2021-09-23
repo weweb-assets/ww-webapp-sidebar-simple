@@ -8,12 +8,6 @@ const options = () => {
         action: "toggleSidebar",
       },
     },
-    SidebarOpen: {
-      type: "OnOff",
-      label: {
-        en: "Sidebar open",
-      },
-    },
     fixedBottomLayout: {
       type: "OnOff",
       label: {
@@ -137,45 +131,6 @@ const animation = () => {
   };
 };
 
-const styling = () => {
-  return {
-    backgroundColor: {
-      type: "Color",
-      label: {
-        en: "Background color",
-        fr: "Couleur de fond",
-      },
-      options: {
-        nullable: true,
-        gradient: true,
-      },
-    },
-    borderRadius: {
-      type: "Length",
-      label: {
-        en: "Border radius",
-        fr: "Border radius",
-      },
-      options: {
-        unitChoices: [
-          { value: "px", label: "px", min: 1, max: 1000 },
-          { value: "%", label: "%", min: 1, max: 100 },
-        ],
-      },
-    },
-    shadows: {
-      type: "Shadows",
-      label: {
-        en: "Shadows",
-        fr: "Ombres",
-      },
-      options: {
-        isText: true,
-      },
-    },
-  };
-};
-
 export const getSettingsConfigurations = (content) => {
   return {
     settingsOptions: { ...options() },
@@ -183,7 +138,6 @@ export const getSettingsConfigurations = (content) => {
       ...positioning(),
       ...dimensions(content),
       ...animation(),
-      // ...styling(),
     },
   };
 };

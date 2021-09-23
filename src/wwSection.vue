@@ -31,7 +31,7 @@
     <div class="content-mobile" v-else>
       <wwElement
         class="content-mobile__layout"
-        v-bind="content.contentLayoutMobile"
+        v-bind="content.contentLayout"
       ></wwElement>
     </div>
 
@@ -63,7 +63,6 @@ export default {
   /* wwEditor:end */
   emits: ["update:content"],
   wwDefaultContent: {
-    SidebarOpen: false,
     fixedBottomLayout: false,
     headerLogo: wwLib.element("ww-flexbox"),
     headerContent: wwLib.element("ww-flexbox"),
@@ -75,7 +74,7 @@ export default {
       type: "ww-flexbox",
       content: { direction: "column" },
     }),
-    contentLayoutMobile: wwLib.element("ww-flexbox"),
+    // contentLayoutMobile: wwLib.element("ww-flexbox"),
     positioning: wwLib.responsive("left"),
     spacings: wwLib.responsive("20px"),
     borderRadius: wwLib.responsive("0px"),
@@ -91,15 +90,6 @@ export default {
     return {
       isOpen: false,
     };
-  },
-  watch: {
-    "content.SidebarOpen"(newValue) {
-      if (newValue === true) {
-        this.isOpen = true;
-      } else {
-        this.isOpen = false;
-      }
-    },
   },
   computed: {
     isEditing() {
@@ -178,12 +168,10 @@ export default {
   },
   methods: {
     toggleSidebar() {
-      if (this.isEditing) return;
+      console.log("Toggle !");
       this.isOpen = !this.isOpen;
-      this.$emit("update:content", { SidebarOpen: this.isOpen });
     },
   },
-  mounted() {},
 };
 </script>
 
