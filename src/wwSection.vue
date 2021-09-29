@@ -44,48 +44,14 @@
 </template>
 
 <script>
-/* wwEditor:start */
-import { getSettingsConfigurations } from "./configuration";
-/* wwEditor:end */
-
 export default {
-  name: "ww-webapp-sidebar",
   props: {
     content: { type: "Object", required: true },
     /* wwEditor:start */
     wwEditorState: { type: Object, required: true },
     /* wwEditor:end */
   },
-  /* wwEditor:start */
-  wwEditorConfiguration({ content }) {
-    return getSettingsConfigurations(content);
-  },
-  /* wwEditor:end */
   emits: ["update:content"],
-  wwDefaultContent: {
-    fixedBottomLayout: false,
-    headerLogo: wwLib.element("ww-flexbox"),
-    headerContent: wwLib.element("ww-flexbox"),
-    contentLayoutBottom: wwLib.element({
-      type: "ww-flexbox",
-      content: { direction: "column" },
-    }),
-    contentLayout: wwLib.element({
-      type: "ww-flexbox",
-      content: { direction: "column" },
-    }),
-    // contentLayoutMobile: wwLib.element("ww-flexbox"),
-    positioning: wwLib.responsive("left"),
-    spacings: wwLib.responsive("20px"),
-    borderRadius: wwLib.responsive("0px"),
-    shadows: wwLib.responsive(""),
-    backgroundColor: wwLib.responsive("#ffffff"),
-    widthOpen: wwLib.responsive("250px"),
-    widthClosed: wwLib.responsive("90px"),
-    heightBottomTop: wwLib.responsive("70px"),
-    transitionDuration: "400ms",
-    transitionTimingFunction: "ease",
-  },
   data() {
     return {
       isOpen: false,
@@ -157,8 +123,6 @@ export default {
           ? "0ms"
           : this.content.transitionDuration,
         "--transitionTimingFunction": this.content.transitionTimingFunction,
-        "--backgroundColor": this.content.backgroundColor,
-        "--borderRadius": this.content.borderRadius,
         "--shadows": this.content.shadows,
         "--flexDirection": this.isTopOrBottom ? "row" : "column",
       };
