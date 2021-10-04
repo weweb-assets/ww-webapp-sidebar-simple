@@ -134,25 +134,19 @@ export default {
         },
         headerLogo: {
             hidden: true,
-            defaultValue: wwLib.element('ww-flexbox'),
+            defaultValue: { isWwObject: true, type: 'ww-flexbox' },
         },
         headerContent: {
             hidden: true,
-            defaultValue: wwLib.element('ww-flexbox'),
+            defaultValue: { isWwObject: true, type: 'ww-flexbox' },
         },
         contentLayoutBottom: {
             hidden: true,
-            defaultValue: wwLib.element({
-                type: 'ww-flexbox',
-                content: { direction: 'column' },
-            }),
+            defaultValue: { isWwObject: true, type: 'ww-flexbox', content: { direction: 'column' } },
         },
         contentLayout: {
             hidden: true,
-            defaultValue: wwLib.element({
-                type: 'ww-flexbox',
-                content: { direction: 'column' },
-            }),
+            defaultValue: { isWwObject: true, type: 'ww-flexbox', content: { direction: 'column' } },
         },
     },
 };
