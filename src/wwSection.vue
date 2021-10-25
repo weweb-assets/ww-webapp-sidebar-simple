@@ -122,7 +122,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ww-webapp-sidebar {
     position: fixed;
     background-color: inherit;
