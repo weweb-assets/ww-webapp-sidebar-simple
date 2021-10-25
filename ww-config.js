@@ -5,16 +5,6 @@ export default {
         },
     },
     properties: {
-        toggleSidebar: {
-            type: 'Button',
-            options: {
-                text: { en: 'Toggle sidebar state' },
-                color: 'blue',
-                action: 'toggleSidebar',
-            },
-            section: 'settings',
-            editorOnly: true,
-        },
         fixedBottomLayout: {
             type: 'OnOff',
             label: {
@@ -55,11 +45,11 @@ export default {
             responsive: true,
             defaultValue: '20px',
         },
-        widthClosed: {
+        width: {
             type: 'Length',
             label: {
-                en: 'Width closed',
-                fr: 'Width closed',
+                en: 'Width',
+                fr: 'Width',
             },
             options: {
                 unitChoices: [
@@ -69,21 +59,6 @@ export default {
             },
             responsive: true,
             defaultValue: '90px',
-        },
-        widthOpen: {
-            type: 'Length',
-            label: {
-                en: 'Width open',
-                fr: 'Width open',
-            },
-            options: {
-                unitChoices: [
-                    { value: 'px', label: 'px' },
-                    { value: '%', label: '%' },
-                ],
-            },
-            responsive: true,
-            defaultValue: '250px',
         },
         heightBottomTop: {
             hidden: content => content.positioning !== 'top' || content.positioning !== 'bottom',
@@ -100,45 +75,6 @@ export default {
             },
             responsive: true,
             defaultValue: '70px',
-        },
-        transitionDuration: {
-            type: 'Length',
-            label: {
-                en: 'Transition duration',
-                fr: 'Durée de la transition',
-            },
-            options: {
-                unitChoices: [{ value: 'ms', label: 'ms', min: 1, max: 5000 }],
-            },
-            defaultValue: '400ms',
-        },
-        transitionTimingFunction: {
-            label: {
-                en: 'Transition timing function',
-                fr: 'Transition timing function',
-            },
-            type: 'TextSelect',
-            options: {
-                options: [
-                    { value: 'ease', label: { en: 'ease', fr: 'ease' } },
-                    { value: 'ease-in', label: { en: 'ease-in', fr: 'ease-in' } },
-                    { value: 'ease-out', label: { en: 'ease-out', fr: 'ease-out' } },
-                    {
-                        value: 'ease-in-out',
-                        label: { en: 'ease-in-out', fr: 'ease-in-out' },
-                    },
-                    { value: 'linear', label: { en: 'linear', fr: 'linear' } },
-                ],
-            },
-            defaultValue: 'ease',
-        },
-        headerLogo: {
-            hidden: true,
-            defaultValue: { isWwObject: true, type: 'ww-flexbox' },
-        },
-        headerContent: {
-            hidden: true,
-            defaultValue: { isWwObject: true, type: 'ww-flexbox' },
         },
         contentLayoutBottom: {
             hidden: true,

@@ -1,16 +1,6 @@
 <template>
     <div class="ww-webapp-sidebar" :class="{ editing: isEditing }" :style="cssVariables">
         <div v-if="!isTopOrBottom" class="content">
-            <div class="header">
-                <wwElement
-                    class="header__content"
-                    :class="{ hidden: !isOpen }"
-                    v-bind="content.headerContent"
-                ></wwElement>
-                <div @click="toggleSidebar">
-                    <wwElement class="header__logo" v-bind="content.headerLogo"></wwElement>
-                </div>
-            </div>
             <wwElement class="content__layout" v-bind="content.contentLayout"></wwElement>
             <wwElement
                 v-if="content.fixedBottomLayout"
@@ -39,11 +29,6 @@ export default {
         /* wwEditor:end */
     },
     emits: ['update:content'],
-    data() {
-        return {
-            isOpen: false,
-        };
-    },
     computed: {
         isEditing() {
             /* wwEditor:start */
@@ -55,9 +40,6 @@ export default {
         isTopOrBottom() {
             return this.content.positioning === 'top' || this.content.positioning === 'bottom';
         },
-        sidebarWidth() {
-            return this.isOpen === true ? this.content.widthOpen : this.content.widthClosed;
-        },
         positioningValues() {
             switch (this.content.positioning) {
                 case 'left':
@@ -65,14 +47,14 @@ export default {
                         top: this.content.spacings,
                         left: this.content.spacings,
                         bottom: this.content.spacings,
-                        width: this.sidebarWidth,
+                        width: this.content.width,
                     };
                 case 'right':
                     return {
                         top: this.content.spacings,
                         right: this.content.spacings,
                         bottom: this.content.spacings,
-                        width: this.sidebarWidth,
+                        width: this.content.width,
                     };
                 case 'bottom':
                     return {
@@ -95,17 +77,14 @@ export default {
                         top: this.content.spacings,
                         left: this.content.spacings,
                         bottom: this.content.spacings,
-                        width: this.sidebarWidth,
+                        width: this.content.width,
                     };
             }
         },
         cssVariables() {
             const variables = {
                 ...this.positioningValues,
-                '--widthOpen': this.content.widthOpen,
-                '--headerJustify': this.isOpen === true ? 'space-between' : 'center',
-                '--transitionDuration': this.isEditing ? '0ms' : this.content.transitionDuration,
-                '--transitionTimingFunction': this.content.transitionTimingFunction,
+                width: this.content.width,
                 '--shadows': this.content.shadows,
                 '--flexDirection': this.isTopOrBottom ? 'row' : 'column',
             };
@@ -128,7 +107,6 @@ export default {
     background-color: inherit;
     border-radius: inherit;
     box-shadow: inherit;
-    transition: all var(--transitionDuration) var(--transitionTimingFunction);
 
     .content {
         overflow: hidden;
@@ -140,39 +118,12 @@ export default {
         &__layout {
             overflow-y: auto;
             height: 100%;
-            width: var(--widthOpen) !important;
+            width: var(--width) !important;
         }
 
         &__layout-bottom {
             overflow: hidden;
-            width: var(--widthOpen) !important;
-        }
-
-        .header {
-            display: flex;
-            flex-direction: row;
-            justify-content: var(--headerJustify);
-            align-items: center;
-
-            &__logo {
-                min-width: 30px;
-                min-height: 30px;
-                transition: all var(--transitionDuration) var(--transitionTimingFunction);
-
-                position: absolute;
-                top: 0;
-                right: 0;
-            }
-
-            &__content {
-                width: 100%;
-                transition: all var(--transitionDuration) var(--transitionTimingFunction);
-                &.hidden {
-                    opacity: 0;
-                    transform: translateX(-150%);
-                    transition: all calc(var(--transitionDuration) / 1.3) var(--transitionTimingFunction);
-                }
-            }
+            width: var(--width) !important;
         }
     }
 
