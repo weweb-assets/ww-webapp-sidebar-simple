@@ -12,6 +12,7 @@ export default {
             },
             section: 'settings',
             defaultValue: false,
+            bindable: true,
         },
         positioning: {
             label: {
@@ -29,6 +30,7 @@ export default {
             },
             responsive: true,
             defaultValue: 'left',
+            bindable: true,
         },
         spacings: {
             type: 'Length',
@@ -44,6 +46,7 @@ export default {
             },
             responsive: true,
             defaultValue: '20px',
+            bindable: true,
         },
         width: {
             type: 'Length',
@@ -59,6 +62,7 @@ export default {
             },
             responsive: true,
             defaultValue: '90px',
+            bindable: true,
         },
         heightBottomTop: {
             hidden: content => content.positioning !== 'top' || content.positioning !== 'bottom',
@@ -75,6 +79,7 @@ export default {
             },
             responsive: true,
             defaultValue: '70px',
+            bindable: true,
         },
         contentLayoutBottom: {
             hidden: true,
